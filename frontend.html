@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Passenger Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #passengerList { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Flight Passenger Management System</h1>
+
+<input type="text" id="passengerName" placeholder="Enter passenger name">
+<button onclick="addPassenger()">Add Passenger</button>
+<button onclick="removePassenger()">Remove Passenger</button>
+<button onclick="searchPassenger()">Search Passenger</button>
+
+<div id="passengerList"></div>
+
+<script>
+    let passengers = [];
+
+    function addPassenger() {
+        const name = document.getElementById('passengerName').value.trim();
+        if (name) {
+            passengers.push(name);
+            document.getElementById('passengerName').value = '';
+            displayPassengers();
+        } else {
+            alert('Please enter a name.');
+        }
+    }
+
+    function removePassenger() {
+        const name = document.getElementById('passengerName').value.trim();
+        if (name) {
+            passengers = passengers.filter(passenger => passenger !== name);
+            document.getElementById('passengerName').value = '';
+            displayPassengers();
+        } else {
+            alert('Please enter a name to remove.');
+        }
+    }
+
+    function searchPassenger() {
+        const name = document.getElementById('passengerName').value.trim();
+        if (name) {
+            const found = passengers.includes(name);
+            alert(found ? 'Passenger found: ' + name : 'Passenger not found.');
+        } else {
+            alert('Please enter a name to search.');
+        }
+    }
+
+    function displayPassengers() {
+        const listDiv = document.getElementById('passengerList');
+        listDiv.innerHTML = '<h3>Passenger List:</h3>';
+        if (passengers.length === 0) {
+            listDiv.innerHTML += '<p>No passengers found.</p>';
+        } else {
+            listDiv.innerHTML += '<ul>' + passengers.map(p => '<li>' + p + '</li>').join('') + '</ul>';
+        }
+    }
+</script>
+
+</body>
+</html>
